@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: testups
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/herfel97/testOpenShiftUPS.git
+    targetRevision: main
+    path: deploy/overlays/k3s
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: testups
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

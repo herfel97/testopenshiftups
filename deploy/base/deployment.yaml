@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testups
+  labels:
+    app: testups
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testups
+  template:
+    metadata:
+      labels:
+        app: testups
+    spec:
+      containers:
+        - name: testups
+          image: testups:0.0.0
+          ports:
+            - name: http
+              containerPort: 80
+          resources:
+            requests:
+              cpu: 50m
+              memory: 64Mi
+            limits:
+              cpu: 200m
+              memory: 128Mi
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 5
+            periodSeconds: 5

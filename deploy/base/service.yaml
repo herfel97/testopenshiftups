@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: testups
+  labels:
+    app: testups
+spec:
+  type: ClusterIP
+  selector:
+    app: testups
+  ports:
+    - name: http
+      port: 80
+      targetPort: http
