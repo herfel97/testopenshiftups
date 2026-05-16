@@ -1,19 +1,19 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: testups
+  name: test
   labels:
-    app: testups
+    app: test
 spec:
   ingressClassName: traefik
   rules:
-    - host: testups.local
+    - host: test.gihp4c.local
       http:
         paths:
           - path: /
             pathType: Prefix
             backend:
               service:
-                name: testups
+                name: test
                 port:
                   number: 80

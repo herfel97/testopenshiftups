@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: testups
+  name: test
   labels:
-    app: testups
+    app: test
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: testups
+      app: test
   template:
     metadata:
       labels:
-        app: testups
+        app: test
     spec:
       containers:
-        - name: testups
-          image: testups:0.0.0
+        - name: test
+          image: test:0.0.0
           ports:
             - name: http
               containerPort: 80
