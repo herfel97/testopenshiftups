@@ -6,7 +6,8 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-    - http:
+    - host: test.gihp4c.edu
+      http:
         paths:
           - path: /
             pathType: Prefix
