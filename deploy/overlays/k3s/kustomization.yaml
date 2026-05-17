@@ -3,6 +3,9 @@ kind: Kustomization
 
 namespace: gihp4c
 
+commonAnnotations:
+  gitops.herfel97/rollout-trigger: "initial"
+
 resources:
   - ../../base
   - ingress.yaml

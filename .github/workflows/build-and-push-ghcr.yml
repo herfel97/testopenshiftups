@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   packages: write
 
 env:
@@ -16,6 +16,7 @@ env:
 
 jobs:
   build-and-push:
+    if: github.event_name == 'workflow_dispatch' || !contains(github.event.head_commit.message, '[skip ci]')
     runs-on: ubuntu-latest
 
     steps:
@@ -55,3 +56,13 @@ jobs:
 
       - name: Verify latest tag exists
         run: docker pull ${{ env.IMAGE_NAME }}:latest
+
+      - name: Trigger ArgoCD rollout
+        run: |
+          sed -i "s|gitops.herfel97/rollout-trigger:.*|gitops.herfel97/rollout-trigger: \"${{ github.sha }}\"|" deploy/overlays/k3s/kustomization.yaml
+
+      - name: Commit rollout trigger
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "chore: trigger ArgoCD rollout [skip ci]"
+          file_pattern: deploy/overlays/k3s/kustomization.yaml
