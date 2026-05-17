@@ -10,4 +10,4 @@ resources:
 images:
   - name: test
     newName: ghcr.io/herfel97/testopenshiftups
-    newTag: "0.0.0"
+    newTag: "latest"
