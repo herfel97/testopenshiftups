@@ -10,4 +10,4 @@ resources:
 images:
   - name: test
     newName: ghcr.io/herfel97/testopenshiftups
-    newTag: "d9bd8b922a424ce9fcace160317ed9b985a2c2af"
+    newTag: "4df48cd007990a2666b91653aca5c44c8ceceffa"
