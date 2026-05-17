@@ -65,7 +65,17 @@ jobs:
           LOGIN_ARGS=(--auth-token "${ARGOCD_AUTH_TOKEN}" --grpc-web)
           CMD_ARGS=(--grpc-web)
 
+          # Cert issued for hostname, not IP → TLS fails unless --insecure.
+          # CI cannot answer "Proceed insecurely (y/n)?" → fatal EOF without this.
+          USE_INSECURE=false
           if [ "${ARGOCD_INSECURE:-false}" = "true" ]; then
+            USE_INSECURE=true
+          elif echo "${ARGOCD_SERVER}" | grep -qE '^([0-9]{1,3}\.){3}[0-9]{1,3}(:[0-9]+)?$'; then
+            echo "::warning::ARGOCD_SERVER is an IP; using --insecure. Prefer a hostname + valid cert, or set secret ARGOCD_INSECURE=true."
+            USE_INSECURE=true
+          fi
+
+          if [ "${USE_INSECURE}" = "true" ]; then
             LOGIN_ARGS+=(--insecure)
             CMD_ARGS+=(--insecure)
           fi
