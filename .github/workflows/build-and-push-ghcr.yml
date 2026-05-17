@@ -105,9 +105,10 @@ jobs:
             exit 1
           fi
 
+          # Update live image parameter; auto-sync (see application.yaml) deploys it.
+          # No manual "app sync" — avoids "another operation is already in progress".
           argocd app set "${ARGOCD_APP}" \
             --kustomize-image "test=${IMAGE_NAME}:${IMAGE_TAG}" \
             "${CMD_ARGS[@]}"
 
-          argocd app sync "${ARGOCD_APP}" "${CMD_ARGS[@]}" --prune
-          argocd app wait "${ARGOCD_APP}" "${CMD_ARGS[@]}" --health --timeout 600
+          argocd app wait "${ARGOCD_APP}" "${CMD_ARGS[@]}" --sync --health --timeout 600
