@@ -39,7 +39,6 @@ jobs:
         with:
           images: ${{ env.IMAGE_NAME }}
           tags: |
-            type=raw,value=latest,enable=true
             type=sha,format=long
 
       - name: Build and push image
@@ -54,15 +53,15 @@ jobs:
           provenance: false
           sbom: false
 
-      - name: Verify latest tag exists
-        run: docker pull ${{ env.IMAGE_NAME }}:latest
+      - name: Verify image tag exists
+        run: docker pull ${{ env.IMAGE_NAME }}:${{ github.sha }}
 
-      - name: Trigger ArgoCD rollout
+      - name: Update deploy image tag
         run: |
-          sed -i "s|gitops.herfel97/rollout-trigger:.*|gitops.herfel97/rollout-trigger: \"${{ github.sha }}\"|" deploy/overlays/k3s/kustomization.yaml
+          sed -i "s|newTag:.*|newTag: \"${{ github.sha }}\"|" deploy/overlays/k3s/kustomization.yaml
 
-      - name: Commit rollout trigger
+      - name: Commit deploy tag
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
-          commit_message: "chore: trigger ArgoCD rollout [skip ci]"
+          commit_message: "chore: deploy image ${{ github.sha }} [skip ci]"
           file_pattern: deploy/overlays/k3s/kustomization.yaml

@@ -19,7 +19,6 @@ spec:
       containers:
         - name: test
           image: test:0.0.0
-          imagePullPolicy: Always
           ports:
             - name: http
               containerPort: 80
