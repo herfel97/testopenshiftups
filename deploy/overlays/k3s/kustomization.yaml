@@ -4,7 +4,7 @@ kind: Kustomization
 namespace: gihp4c
 
 commonAnnotations:
-  gitops.herfel97/rollout-trigger: "initial"
+  gitops.herfel97/rollout-trigger: "d9bd8b922a424ce9fcace160317ed9b985a2c2af"
 
 resources:
   - ../../base
