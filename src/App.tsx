@@ -20,7 +20,7 @@ function App() {
           className="counter"
           onClick={() => setCount((count) => count + 1)}
         >
-          Contador pruebasss : {count}
+          Contador pruebasss auto sync : {count}
         </button>
       </section>
 
