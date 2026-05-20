@@ -1,34 +1,35 @@
+# Solo se ejecuta al abrir/actualizar un Pull Request hacia main.
+# No corre con push directo a main (usa build-and-push-ghcr.yml para eso).
+# Requiere el secret MODEL_API_KEY en Settings > Secrets and variables > Actions.
 name: Code Review
-on:
-    pull_request:
-        types: [opened, reopened, synchronize, ready_for_review]
-        branches:
-            - main # change this to your target branch
-    workflow_dispatch: # Allows you to run the workflow manually from the Actions tab
 
-permissions: # necessary permissions
-    pull-requests: write
-    contents: read
+on:
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    branches:
+      - main
+
+permissions:
+  pull-requests: write
+  contents: read
 
 jobs:
-    your-job-name:
-        runs-on: ubuntu-latest
-        name: your-job-name
-        steps:
-            - name: step-name
-              id: step-id
-              uses: murtuzaalisurti/better@v3 # this is the ref of the github action - https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_iduses
-              with:
-                repo-token: ${{ secrets.GITHUB_TOKEN }} # this is auto generated
-                ai-model-api-key: ${{ secrets.MODEL_API_KEY }} # make sure to set this in your repository secrets - /settings/secrets/actions (Settings > Secrets and Variables > Actions > Secrets Tab)
-                platform: 'openai' # can be 'openai' | 'anthropic' | 'google' | 'openrouter' | 'mistral'
-                delete-existing-review-by-bot: true #default is true
-                filesToIgnore: '**/*.env; .husky/**; .cache/**' # uses glob patterns (micromatch - https://github.com/micromatch/micromatch)
-                rules: |- # Rules to consider for code review
-                    -- It must follow industry standard best practices
-                    -- It should be idiomatic
-                    -- It should be readable
-                    -- It should not contain any security related vulnerabilities
-                    -- It should not contain any sensitive data
-                    -- It should be well structured
-                    -- It should not contain bad patterns
+  ai-code-review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: AI code review
+        uses: murtuzaalisurti/better@v3
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          ai-model-api-key: ${{ secrets.MODEL_API_KEY }}
+          platform: openai
+          delete-existing-review-by-bot: true
+          filesToIgnore: "**/*.env; .husky/**; .cache/**"
+          rules: |-
+            -- It must follow industry standard best practices
+            -- It should be idiomatic
+            -- It should be readable
+            -- It should not contain any security related vulnerabilities
+            -- It should not contain any sensitive data
+            -- It should be well structured
+            -- It should not contain bad patterns
