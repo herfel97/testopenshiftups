@@ -1,35 +1,26 @@
-# Solo se ejecuta al abrir/actualizar un Pull Request hacia main.
-# No corre con push directo a main (usa build-and-push-ghcr.yml para eso).
-# Requiere el secret MODEL_API_KEY en Settings > Secrets and variables > Actions.
-name: Code Review
-
+name: PR Agent (Gemini)
 on:
   pull_request:
-    types: [opened, reopened, synchronize, ready_for_review]
-    branches:
-      - main
-
-permissions:
-  pull-requests: write
-  contents: read
-
+    types: [opened, reopened, ready_for_review, synchronize]
+  issue_comment:
 jobs:
-  ai-code-review:
+  pr_agent_job:
+    if: ${{ github.event.sender.type != 'Bot' }}
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+      contents: write
     steps:
-      - name: AI code review
-        uses: murtuzaalisurti/better@v3
-        with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          ai-model-api-key: ${{ secrets.MODEL_API_KEY }}
-          platform: openai
-          delete-existing-review-by-bot: true
-          filesToIgnore: "**/*.env; .husky/**; .cache/**"
-          rules: |-
-            -- It must follow industry standard best practices
-            -- It should be idiomatic
-            -- It should be readable
-            -- It should not contain any security related vulnerabilities
-            -- It should not contain any sensitive data
-            -- It should be well structured
-            -- It should not contain bad patterns
+      - name: PR Agent action step
+        uses: qodo-ai/pr-agent@main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          config.model: "gemini/gemini-2.5-flash"
+          config.fallback_models: '["gemini/gemini-2.5-flash"]'
+          GOOGLE_AI_STUDIO.GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          config.response_language: "ja-JP"
+          github_action_config.auto_review: "true"
+          github_action_config.auto_describe: "true"
+          github_action_config.auto_improve: "true"
+          github_action_config.pr_actions: '["opened", "reopened", "ready_for_review", "synchronize"]'
