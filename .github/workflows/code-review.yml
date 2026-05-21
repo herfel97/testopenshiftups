@@ -24,7 +24,6 @@ jobs:
           github_action_config.auto_describe: "true"
           github_action_config.auto_improve: "true"
           github_action_config.pr_actions: '["opened", "reopened", "ready_for_review", "synchronize"]'
-      - steps:
       - name: PR Agent action step
         id: pragent
         uses: the-pr-agent/pr-agent@main(pr-agent)
