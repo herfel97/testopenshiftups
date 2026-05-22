@@ -20,7 +20,7 @@ function App() {
           className="counter"
           onClick={() => setCount((count) => count + 1)}
         >
-          prueba developer gihp4c {count}
+          prueba developer UPS gihp4c {count}
         </button>
       </section>
     </>
