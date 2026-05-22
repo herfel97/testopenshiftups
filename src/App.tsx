@@ -23,8 +23,6 @@ function App() {
           prueba developer gihp4c {count}
         </button>
       </section>
-
-      <div className="ticks"></div>
     </>
   )
 }
