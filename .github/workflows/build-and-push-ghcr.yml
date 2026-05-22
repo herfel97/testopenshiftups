@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
 
 permissions:
   contents: write
@@ -23,45 +22,41 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
+      - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Login to GHCR
         uses: docker/login-action@v3
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push Image
+      - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
         with:
           context: .
-          file: ./Dockerfile
           push: true
-          platforms: linux/amd64
           tags: |
             ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             ${{ env.IMAGE_NAME }}:latest
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
 
-      - name: Verify image exists
-        run: docker pull ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
-
-      - name: Update kustomization.yaml
+      - name: Install Kustomize
         run: |
-          cd k8s/overlays/dev
+          curl -s https://raw.githubusercontent.com/kubernetes-sigs/kustomize/master/hack/install_kustomize.sh | bash
+          sudo mv kustomize /usr/local/bin/
 
-          sed -i "s|newTag: .*|newTag: ${IMAGE_TAG}|g" kustomization.yaml
+      - name: Update image tag
+        run: |
+          kustomize edit set image test=${IMAGE_NAME}:${IMAGE_TAG}
 
-      - name: Commit updated manifest
+      - name: Commit changes
         run: |
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          git add k8s/overlays/dev/kustomization.yaml
+          git add kustomization.yaml
 
-          git commit -m "Update image tag to ${IMAGE_TAG}" || echo "No changes to commit"
+          git commit -m "Update image to ${IMAGE_TAG}" || echo "No changes"
 
           git push
