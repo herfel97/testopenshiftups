@@ -9,3 +9,8 @@ commonLabels:
   app.kubernetes.io/name: test
   app.kubernetes.io/component: frontend
   app.kubernetes.io/part-of: gihp4c
+
+images:
+  - name: test
+    newName: ghcr.io/herfel97/testopenshiftups
+    newTag: latest
