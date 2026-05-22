@@ -40,6 +40,9 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:${{ env.IMAGE_TAG }}
             ${{ env.IMAGE_NAME }}:latest
+      
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       - name: Install Kustomize
         run: |
@@ -48,6 +51,7 @@ jobs:
 
       - name: Update image tag
         run: |
+          cd deploy/base
           kustomize edit set image test=${IMAGE_NAME}:${IMAGE_TAG}
 
       - name: Commit changes
