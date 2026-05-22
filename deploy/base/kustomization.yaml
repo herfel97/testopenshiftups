@@ -2,15 +2,15 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - deployment.yaml
-  - service.yaml
+- deployment.yaml
+- service.yaml
 
 commonLabels:
-  app.kubernetes.io/name: test
   app.kubernetes.io/component: frontend
+  app.kubernetes.io/name: test
   app.kubernetes.io/part-of: gihp4c
 
 images:
-  - name: test
-    newName: ghcr.io/herfel97/testopenshiftups
-    newTag: latest
+- name: test
+  newName: ghcr.io/herfel97/testopenshiftups
+  newTag: 20620a7df0ece130936bc9ffb689ac68fea26777
