@@ -59,7 +59,7 @@ jobs:
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
 
-          git add kustomization.yaml
+          git add deploy/base/kustomization.yaml
 
           git commit -m "Update image to ${IMAGE_TAG}" || echo "No changes"
 
