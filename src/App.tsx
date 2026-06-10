@@ -21,13 +21,9 @@ function App() {
           className="counter"
           onClick={() => setCount((count) => count + 1)}
         >
-          prueba dev  test {count}
+          prueba developer UPS gihp4c {count}
         </button>
       </section>
-
-      <BuggyUserPanel />
-
-      <div className="ticks"></div>
     </>
   )
 }
