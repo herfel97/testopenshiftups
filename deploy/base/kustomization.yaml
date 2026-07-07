@@ -13,4 +13,4 @@ commonLabels:
 images:
 - name: test
   newName: ghcr.io/herfel97/testopenshiftups
-  newTag: 6380e98c4d58a3b7cef140d8d342834ea123003b
+  newTag: 04e12befb795e84e37897376494f7fd49f868dbe
