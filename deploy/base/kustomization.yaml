@@ -12,5 +12,5 @@ commonLabels:
 
 images:
 - name: test
-  newName: ghcr.io/herfel97/testopenshiftups
-  newTag: 5f93f5fcb5d72fd1b42757f708205792b8afcaf7
+  newName: ghcr.io/herfel97/cmclasifier
+  newTag: 716af886a366f2a3b34ede2a0e71ee2eb0b29508
