@@ -23,6 +23,7 @@ function App() {
         >
           prueba developer UPS gihp4c {count}
         </button>
+        <BuggyUserPanel />
       </section>
     </>
   )
