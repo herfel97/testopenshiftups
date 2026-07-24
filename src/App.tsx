@@ -20,7 +20,7 @@ function App() {
           className="counter"
           onClick={() => setCount((count) => count + 1)}
         >
-          test despliegue UPS tesis 2026 prueba final{count}
+          test despliegue UPS tesis 2026 prueba final final final {count}
         </button>
       </section>
     </>
