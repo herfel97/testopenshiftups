@@ -2,7 +2,6 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from './assets/vite.svg'
 import heroImg from './assets/hero.png'
-import { BuggyUserPanel } from './components/BuggyUserPanel'
 import './App.css'
 
 function App() {
@@ -21,9 +20,8 @@ function App() {
           className="counter"
           onClick={() => setCount((count) => count + 1)}
         >
-          prueba developer UPS gihp4c {count}
+          prueba developer UPS gihp4c  2025{count}
         </button>
-        <BuggyUserPanel />
       </section>
     </>
   )
