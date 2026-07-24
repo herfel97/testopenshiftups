@@ -3,11 +3,12 @@ kind: Ingress
 metadata:
   name: test
   namespace: gihp4c
+  annotations:
+    traefik.ingress.kubernetes.io/router.middlewares: gihp4c-test-stripprefix@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
-    #- host: test.gihp4c.edu
-      http:
+    - http:
         paths:
           - path: /test
             pathType: Prefix
