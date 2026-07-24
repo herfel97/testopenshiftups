@@ -1,0 +1,30 @@
+name: Snyk Security Scan Vulnerability
+
+on:
+  pull_request:
+    branches: [ "main", "master", "develop" ]
+
+permissions:
+  contents: read
+  security-events: write # Requerido para subir las alertas a la pestaña Security del PR
+
+jobs:
+  security:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+        
+      - name: Ejecutar análisis de Snyk (Open Source)
+        uses: snyk/actions/node@master
+        continue-on-error: true # Permite pasar al siguiente paso para renderizar las alertas en el PR
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
+        with:
+          args: --sarif-file-output=snyk.sarif
+
+      # Esto hará que las vulnerabilidades aparezcan directamente como comentarios o alertas en la revisión del PR
+      - name: Subir resultados a GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: snyk.sarif
