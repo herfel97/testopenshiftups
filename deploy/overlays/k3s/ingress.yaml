@@ -9,7 +9,7 @@ spec:
     - host: test.gihp4c.edu
       http:
         paths:
-          - path: /
+          - path: /test
             pathType: Prefix
             backend:
               service:
