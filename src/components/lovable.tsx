@@ -73,12 +73,6 @@ function Lovable({
 
         <p className="love-message">{message}</p>
         <p className="love-signature">{signature}</p>
-
-        <footer className="love-footer">
-          <span>Siempre tú</span>
-          <strong>∞</strong>
-          <span>Siempre nosotros</span>
-        </footer>
       </section>
     </main>
   )
