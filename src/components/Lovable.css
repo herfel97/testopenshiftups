@@ -1,0 +1,442 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Italiana&family=Parisienne&display=swap');
+
+.love-page,
+.love-page * {
+  box-sizing: border-box;
+}
+
+.love-page {
+  position: relative;
+  min-height: 100svh;
+  width: 100%;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  padding: 38px 20px;
+  color: #532c38;
+  background:
+    radial-gradient(circle at 50% -5%, rgba(255, 255, 255, 0.9), transparent 36%),
+    linear-gradient(145deg, #fff3f4 0%, #fbe3e8 48%, #f6d9e2 100%);
+  isolation: isolate;
+}
+
+.love-page::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  opacity: 0.26;
+  background-image: radial-gradient(circle, #d49aaa 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(circle at center, transparent 5%, #000 75%);
+}
+
+.love-glow {
+  position: absolute;
+  z-index: -1;
+  border-radius: 50%;
+  filter: blur(12px);
+  animation: love-drift 7s ease-in-out infinite alternate;
+}
+
+.love-glow--one {
+  width: 350px;
+  height: 350px;
+  top: -200px;
+  right: -90px;
+  background: rgba(244, 114, 148, 0.2);
+}
+
+.love-glow--two {
+  width: 300px;
+  height: 300px;
+  bottom: -180px;
+  left: -80px;
+  background: rgba(190, 74, 109, 0.15);
+  animation-delay: -3s;
+}
+
+.floating-hearts {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.floating-hearts span {
+  position: absolute;
+  bottom: -30px;
+  opacity: 0;
+  background: rgba(190, 74, 109, 0.32);
+  transform: rotate(45deg);
+  animation: heart-rise 8s linear infinite;
+}
+
+.floating-hearts span::before,
+.floating-hearts span::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: inherit;
+}
+
+.floating-hearts span::before {
+  left: -50%;
+}
+
+.floating-hearts span::after {
+  top: -50%;
+}
+
+.love-card {
+  position: relative;
+  width: min(100%, 660px);
+  overflow: hidden;
+  padding: 45px 64px 0;
+  text-align: center;
+  border: 1px solid rgba(162, 83, 106, 0.15);
+  border-radius: 160px 160px 28px 28px;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.87), rgba(255, 246, 248, 0.74));
+  box-shadow:
+    0 35px 80px rgba(104, 38, 58, 0.15),
+    inset 0 1px rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(18px);
+  animation: love-card-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.love-spark {
+  position: absolute;
+  color: #d594a7;
+  animation: love-twinkle 2.2s ease-in-out infinite;
+}
+
+.love-spark--one {
+  top: 90px;
+  left: 15%;
+  font-size: 18px;
+}
+
+.love-spark--two {
+  top: 150px;
+  right: 13%;
+  font-size: 12px;
+  animation-delay: -1s;
+}
+
+.love-recipient {
+  display: inline-flex;
+  margin: 0;
+  padding: 7px 15px;
+  color: #a2536a;
+  border: 1px solid rgba(162, 83, 106, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.45);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+
+.love-heart {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  display: grid;
+  place-items: center;
+  margin: 18px auto 5px;
+}
+
+.love-heart__ring {
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(190, 74, 109, 0.18);
+  border-radius: 50%;
+  animation: love-ring 2.5s ease-out infinite;
+}
+
+.love-heart svg {
+  width: 82px;
+  overflow: visible;
+  fill: #c84f72;
+  filter: drop-shadow(0 12px 14px rgba(176, 54, 91, 0.2));
+  animation: heartbeat 1.8s ease-in-out infinite;
+}
+
+.love-heart__shine {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.65);
+  stroke-width: 5;
+  stroke-linecap: round;
+}
+
+.love-heart__mini {
+  position: absolute;
+  color: #df8da5;
+  line-height: 1;
+  animation: mini-heart 2.4s ease-in-out infinite;
+}
+
+.love-heart__mini--one {
+  top: 16px;
+  right: 3px;
+  font-size: 14px;
+}
+
+.love-heart__mini--two {
+  bottom: 19px;
+  left: 5px;
+  font-size: 9px;
+  animation-delay: -1.2s;
+}
+
+.love-eyebrow {
+  margin: 0 0 9px;
+  color: #b77b8c;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.7px;
+}
+
+.love-card h1 {
+  max-width: 520px;
+  margin: 0 auto;
+  color: #713447;
+  font-family: 'Italiana', Georgia, serif;
+  font-size: clamp(39px, 6.5vw, 57px);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -1.8px;
+}
+
+.love-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 210px;
+  margin: 21px auto 17px;
+}
+
+.love-divider span {
+  width: 72px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(162, 83, 106, 0.4));
+}
+
+.love-divider span:last-child {
+  transform: scaleX(-1);
+}
+
+.love-divider i {
+  color: #c75d7b;
+  font-size: 9px;
+  font-style: normal;
+}
+
+.love-message {
+  max-width: 485px;
+  margin: 0 auto;
+  color: #7e5964;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+.love-signature {
+  margin: 20px 0 0;
+  color: #a34662;
+  font-family: 'Parisienne', cursive;
+  font-size: 25px;
+  transform: rotate(-2deg);
+}
+
+.love-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 29px -64px 0;
+  padding: 15px;
+  color: #ad7b8a;
+  border-top: 1px solid rgba(162, 83, 106, 0.1);
+  background: rgba(190, 74, 109, 0.035);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}
+
+.love-footer strong {
+  color: #bd5574;
+  font-family: Georgia, serif;
+  font-size: 17px;
+}
+
+@keyframes love-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(26px) scale(0.97);
+  }
+}
+
+@keyframes heartbeat {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  12% {
+    transform: scale(1.08);
+  }
+  22% {
+    transform: scale(1);
+  }
+  32% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes love-ring {
+  0% {
+    opacity: 0.55;
+    transform: scale(0.75);
+  }
+  75%,
+  100% {
+    opacity: 0;
+    transform: scale(1.15);
+  }
+}
+
+@keyframes mini-heart {
+  50% {
+    opacity: 0.45;
+    transform: translateY(-7px) rotate(8deg);
+  }
+}
+
+@keyframes love-twinkle {
+  50% {
+    opacity: 0.25;
+    transform: scale(0.65) rotate(20deg);
+  }
+}
+
+@keyframes heart-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(0) rotate(45deg) scale(0.7);
+  }
+  12% {
+    opacity: 0.6;
+  }
+  85% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-110vh) rotate(75deg) scale(1.15);
+  }
+}
+
+@keyframes love-drift {
+  to {
+    transform: translate3d(24px, 22px, 0) scale(1.08);
+  }
+}
+
+@media (max-width: 600px) {
+  .love-page {
+    min-height: 100dvh;
+    padding: 14px;
+  }
+
+  .love-card {
+    padding: 34px 23px 0;
+    border-radius: 100px 100px 24px 24px;
+  }
+
+  .love-heart {
+    width: 112px;
+    height: 112px;
+    margin-top: 13px;
+  }
+
+  .love-heart svg {
+    width: 70px;
+  }
+
+  .love-card h1 {
+    font-size: clamp(37px, 12vw, 49px);
+    letter-spacing: -1.2px;
+  }
+
+  .love-message {
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .love-signature {
+    font-size: 23px;
+  }
+
+  .love-footer {
+    margin-inline: -23px;
+    gap: 9px;
+    letter-spacing: 0.8px;
+  }
+}
+
+@media (max-width: 360px) {
+  .love-page {
+    padding: 0;
+  }
+
+  .love-card {
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+@media (max-height: 720px) and (min-width: 601px) {
+  .love-page {
+    padding-block: 18px;
+  }
+
+  .love-card {
+    padding-top: 28px;
+  }
+
+  .love-heart {
+    width: 105px;
+    height: 105px;
+    margin-top: 8px;
+  }
+
+  .love-heart svg {
+    width: 66px;
+  }
+
+  .love-card h1 {
+    font-size: 43px;
+  }
+
+  .love-footer {
+    margin-top: 22px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .love-page *,
+  .love-page *::before,
+  .love-page *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}

@@ -1,7 +1,8 @@
-import EmptyDeploy from "./components/EmptyDeploy"
+import Lovable from "./components/lovable"
 
 function App() {
-  return <EmptyDeploy />
+  //return <EmptyDeploy />
+ return <Lovable />;
 }
 
 export default App
