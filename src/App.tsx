@@ -1,7 +1,8 @@
 import EmptyDeploy from "./components/EmptyDeploy"
+import FullDepoy from "./components/FullDepoy"
 
 function App() {
-  return <EmptyDeploy />
+  return <FullDepoy />
 }
 
 export default App
